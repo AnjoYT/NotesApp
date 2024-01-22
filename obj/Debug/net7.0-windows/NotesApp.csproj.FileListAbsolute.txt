@@ -3,11 +3,9 @@ E:\REPOS\C#\NotesApp\bin\Debug\net7.0-windows\NotesApp.deps.json
 E:\REPOS\C#\NotesApp\bin\Debug\net7.0-windows\NotesApp.runtimeconfig.json
 E:\REPOS\C#\NotesApp\bin\Debug\net7.0-windows\NotesApp.dll
 E:\REPOS\C#\NotesApp\bin\Debug\net7.0-windows\NotesApp.pdb
-E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\MainWindow.g.cs
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\App.g.cs
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp_MarkupCompile.cache
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp_MarkupCompile.lref
-E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\MainWindow.baml
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp.g.resources
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp.GeneratedMSBuildEditorConfig.editorconfig
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp.AssemblyInfoInputs.cache
@@ -18,3 +16,6 @@ E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\refint\NotesApp.dll
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp.pdb
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\NotesApp.genruntimeconfig.cache
 E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\ref\NotesApp.dll
+E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\MainWindow.g.cs
+E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\MainWindow.baml
+E:\REPOS\C#\NotesApp\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
