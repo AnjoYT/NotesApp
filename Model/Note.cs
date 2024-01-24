@@ -6,10 +6,12 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Serialization;
 
 namespace NotesApp.Model
 {
-    internal class Note : ISerializable
+    [XmlRoot("Note")]
+    public class Note 
     {
        private string? _title;
         private string? _description;
@@ -34,10 +36,5 @@ namespace NotesApp.Model
             _description = description;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("title", _title);
-            info.AddValue("description", _description);
-        }
     }
 }

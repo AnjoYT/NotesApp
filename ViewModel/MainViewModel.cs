@@ -4,38 +4,59 @@ using NotesApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace NotesApp.ViewModel
 {
-    internal class MainViewModel : INotifyPropertyChanged
+    internal class MainViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        private string? _title;
+        private Note Note { get; set; } = new Note();
         public event PropertyChangedEventHandler? PropertyChanged;
         public string? Title
         {
-            get { return _title; }
+            get { return Note.Title; }
             set
             {
-                _title = value;
-                OnPropertyChanged("Title");
+                if (Note.Title == value) { return; }
+                if (!string.IsNullOrEmpty(value) && value.Length <= 255) {
+                    errors[nameof(Title)] = "Title should be shorter than 255";
+                    OnPropertyChanged(nameof(Title));
+                }
+                Note.Title = value;
+                OnPropertyChanged(nameof(Title));
             }
         }
-        public string? Description { get; set; }
-        public ICommand SaveCommand { get;}
-        public ICommand OpenCommand { get;}
-        public ICommand NewCommand { get;}
-        public ICommand FindCommand { get;}
+        public string? Description {
+            get { return Note.Description; }
+            set
+            {
+                if (Note.Description == value) { return; }
+                Note.Description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+        public ICommand SaveCommand { get; }
+        public ICommand OpenCommand { get; }
+        public ICommand FindCommand { get; }
+
+        public string Error => string.Empty;
+
+        Dictionary<string, string> errors = new Dictionary<string, string>();
+        public string this[string columnName]{
+        get { return errors.TryGetValue(columnName,out string e) ? e : null; }
+        }
+
         public MainViewModel()
         {
             SaveCommand = new RelayCommands(Save);
             OpenCommand = new RelayCommands(Open);
-            NewCommand = new RelayCommands(New);
             FindCommand = new RelayCommands(Find);
         }
 
@@ -45,6 +66,17 @@ namespace NotesApp.ViewModel
             note.Title = Title;
             note.Description = Description;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = note.Title;
+            saveFileDialog.DefaultExt = ".bc";
+            saveFileDialog.Filter = "Bc documents (.bc)|*.bc";
+            XmlSerializer oSerializer = new XmlSerializer(typeof(Note));
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                Stream oStream = new FileStream(Path.GetFullPath(saveFileDialog.FileName), FileMode.Create);
+                oSerializer.Serialize(oStream, note);
+                oStream.Close();
+            }
+
         }
         public void Open()
         {
@@ -52,13 +84,16 @@ namespace NotesApp.ViewModel
             openFileDialog.FileName = "Document";
             openFileDialog.DefaultExt = ".bc";
             openFileDialog.Filter = "Bc documents (.bc)|*.bc";
-            bool? result = openFileDialog.ShowDialog();
-            if (result == true)
-            { string fileName = openFileDialog.FileName; }
-        }
-        public void New()
-        {
-
+            XmlSerializer oSerializer = new XmlSerializer(typeof(Note));
+            if (openFileDialog.ShowDialog() == true)
+            {
+                //Stream oStream = openFileDialog.OpenFile();
+                Stream oStream = new FileStream(Path.GetFullPath(openFileDialog.FileName), FileMode.Open);
+                Note deserializedNote = (Note)oSerializer.Deserialize(oStream);
+                Description = deserializedNote.Description;
+                Title = deserializedNote.Title;
+                oStream.Close();
+            }
         }
         public void Find()
         {

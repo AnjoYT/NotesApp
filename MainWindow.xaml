@@ -42,7 +42,7 @@
             Grid.Row="1"
             Grid.Column="1"
             VerticalAlignment="Center"
-            Text="{Binding Title}" />
+            Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="1"
@@ -66,10 +66,6 @@
             Content="Open" />
         <Button
             Grid.Row="11"
-            Command="{Binding NewCommand}"
-            Content="New" />
-        <Button
-            Grid.Row="10"
             Command="{Binding FindCommand}"
             Content="Find" />
     </Grid>
