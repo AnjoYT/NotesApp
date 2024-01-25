@@ -50,12 +50,14 @@
             VerticalAlignment="Center">
             Note:
         </TextBlock>
-        <TextBox
+        <ScrollViewer
             Grid.Row="3"
             Grid.RowSpan="11"
             Grid.Column="1"
-            Text="{Binding Description}"
-            TextWrapping="Wrap" />
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <TextBox Text="{Binding Description}" TextWrapping="Wrap" />
+        </ScrollViewer>
         <Button
             Grid.Row="13"
             Command="{Binding SaveCommand}"
