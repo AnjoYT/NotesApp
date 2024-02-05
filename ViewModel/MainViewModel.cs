@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Xml.Serialization;
@@ -18,6 +19,7 @@ namespace NotesApp.ViewModel
 {
     internal class MainViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
+        public  ScrollViewer ScrollViewer {  get; set; }
         private Note Note { get; set; } = new Note();
         public event PropertyChangedEventHandler? PropertyChanged;
         public string? Title
@@ -98,7 +100,8 @@ namespace NotesApp.ViewModel
         }
         public void Find()
         {
-            MessageBox.Show("Find");
+            FindHand scrollControl= new FindHand(ScrollViewer);
+            scrollControl.ScrollByIndex(100);
         }
 
         private void OnPropertyChanged(string propertyName)

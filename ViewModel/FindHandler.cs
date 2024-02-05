@@ -10,18 +10,22 @@ using System.Windows.Media;
 
 namespace NotesApp.ViewModel
 {
+    
     class FindHand {
-        public Action<ScrollViewer> _scrollViewer;
-        public FindHand(Action<ScrollViewer> scrollViewer)
+        private readonly ScrollViewer _scrollViewer;
+        
+         public FindHand(ScrollViewer scrollViewer)
         {
 
             _scrollViewer = scrollViewer;
 
         }
-        public void ScrollToLast(int index)
+         public void ScrollByIndex(int index)
         {
+            _scrollViewer.ScrollToVerticalOffset(index);
         }
     }
+    
     internal class ScrollHandler : IScrollInfo
     {
         public bool CanHorizontallyScroll { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

@@ -51,6 +51,7 @@
             Note:
         </TextBlock>
         <ScrollViewer
+            Name="Scroll"
             Grid.Row="3"
             Grid.RowSpan="11"
             Grid.Column="1"
