@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using NotesApp.Commands;
 using NotesApp.Model;
+using NotesApp.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,7 +61,7 @@ namespace NotesApp.ViewModel
         {
             SaveCommand = new RelayCommands(Save);
             OpenCommand = new RelayCommands(Open);
-            FindCommand = new RelayCommands(Find);
+            FindCommand = new RelayCommands(OpenFinder);
         }
 
         public void Save()
@@ -90,7 +91,6 @@ namespace NotesApp.ViewModel
             XmlSerializer oSerializer = new XmlSerializer(typeof(Note));
             if (openFileDialog.ShowDialog() == true)
             {
-                //Stream oStream = openFileDialog.OpenFile();
                 Stream oStream = new FileStream(Path.GetFullPath(openFileDialog.FileName), FileMode.Open);
                 Note deserializedNote = (Note)oSerializer.Deserialize(oStream);
                 Description = deserializedNote.Description;
@@ -98,10 +98,10 @@ namespace NotesApp.ViewModel
                 oStream.Close();
             }
         }
-        public void Find()
+        public void OpenFinder()
         {
-            FindHand scrollControl= new FindHand(ScrollViewer);
-            scrollControl.ScrollByIndex(100);
+            FindWindow window = new FindWindow();
+            window.Show();
         }
 
         private void OnPropertyChanged(string propertyName)
